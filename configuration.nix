@@ -2,16 +2,11 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
-
-let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
-in
+{ pkgs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      "${home-manager}/nixos"
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -35,7 +30,7 @@ in
 
   containers.technitium = {
     autoStart = true;
-    config = { config, pkgs, ... }:
+    config = { pkgs, ... }:
       {
 	      services.technitium-dns-server.enable = true;
 	      system.stateVersion = "26.11";
@@ -88,51 +83,6 @@ in
     	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM9uxaQyMRsQMEKle3YP+g8Un5V6OCQY63ABIllckYUn shyman@threenkpad"
 	    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGgvYnVaOzJMe0UffhFSxIZpsF4a7SgqRJInAeQ+7TH szymon@szymon"
     ];
-  };
-  home-manager.users.shyman = { pkgs, ... }: {
-    home = {
-      packages = with pkgs; [
-        htop
-        ncdu
-        git
-      ];
-      stateVersion = "26.11";
-    };
-
-    programs.bash.enable = true;
-
-    programs.emacs = {
-      package = pkgs.emacs-nox;
-      enable = true;
-      extraPackages = epkgs: [
-        epkgs.evil
-        epkgs.nix-mode
-      ];
-      extraConfig = ''
-          ;; (package-initialize)  -*- lexical-binding: t; -*-
-
-          ;; Sane amount of scroll
-          (setq mouse-wheel-scroll-amount '(3))
-          (setq mouse-wheel-progressive-speed nil)
-          
-          ;; Relnum
-          (setq display-line-numbers-type 'relative)
-          (global-display-line-numbers-mode)
-          
-          ;; Turn off menu
-          (menu-bar-mode -1)
-          
-          (use-package evil
-            :config
-            (evil-mode 1))
-	'';
-    };
-
-    services.emacs = {
-      enable = true;
-      defaultEditor = true;
-      socketActivation.enable = true;
-    };
   };
 
   # programs.firefox.enable = true;
