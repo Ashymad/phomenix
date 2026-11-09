@@ -37,6 +37,7 @@
             inherit inputs;
           };
           modules = [
+            (import ./overlays/lix.nix)
             ./hosts/viktor145/configuration.nix
             home-manager.nixosModules.home-manager
             {
