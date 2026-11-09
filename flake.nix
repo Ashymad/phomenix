@@ -7,40 +7,45 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ssh-keys = {
+      url = "https://meta.sr.ht/~ashymad.keys";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
-    let
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-    in
-      {
-        nixosConfigurations = {
-          pi3b = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              ./hosts/pi3b/configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit pkgs; };
-                home-manager.users.shyman = ./users/shyman.nix;
-              }
-            ];
+  outputs = inputs@{ nixpkgs, home-manager, ssh-keys, ... }:
+    {
+      nixosConfigurations = {
+        pi3b = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit inputs;
           };
-          viktor145 = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              ./hosts/viktor145/configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit pkgs; };
-                home-manager.users.shyman = ./users/shyman.nix;
-              }
-            ];
+          modules = [
+            ./hosts/pi3b/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+            }
+            ./users/shyman.nix
+          ];
+        };
+        viktor145 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
           };
+          modules = [
+            ./hosts/viktor145/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+            }
+            ./users/shyman.nix
+          ];
         };
       };
+    };
 }

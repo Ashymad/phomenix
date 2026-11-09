@@ -75,16 +75,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.shyman = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = [
-    	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM9uxaQyMRsQMEKle3YP+g8Un5V6OCQY63ABIllckYUn shyman@threenkpad"
-	    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGgvYnVaOzJMe0UffhFSxIZpsF4a7SgqRJInAeQ+7TH szymon@szymon"
-    ];
-  };
-
   # programs.firefox.enable = true;
 
   # List packages installed in system profile.

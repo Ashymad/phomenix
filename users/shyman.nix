@@ -1,29 +1,43 @@
-{ pkgs, ... }: {
-  home = {
-    packages = with pkgs; [
-      htop
-      ncdu
-      git
-    ];
-    stateVersion = "26.11";
+{ inputs, config, lib, pkgs, ... }:
+let
+  inherit (inputs) ssh-keys;
+  inherit (inputs) home-manager;
+in
+{
+
+  users.users.shyman = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    openssh.authorizedKeys.keyFiles = [ ssh-keys.outPath ];
   };
 
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      ":e" = "emacsclient";
-      ":q" = "exit";
+  home-manager.users.shyman = {
+    home = {
+      packages = with pkgs; [
+        htop
+        ncdu
+        git
+      ];
+      stateVersion = "26.11";
     };
-  };
 
-  programs.emacs = {
-    package = pkgs.emacs-nox;
-    enable = true;
-    extraPackages = epkgs: [
-      epkgs.evil
-      epkgs.nix-mode
-    ];
-    extraConfig = ''
+    programs.bash = {
+      enable = true;
+      shellAliases = {
+        ":e" = "emacsclient";
+        ":q" = "exit";
+      };
+    };
+
+
+    programs.emacs = {
+      package = pkgs.emacs-nox;
+      enable = true;
+      extraPackages = epkgs: [
+        epkgs.evil
+        epkgs.nix-mode
+      ];
+      extraConfig = ''
           ;; (package-initialize)  -*- lexical-binding: t; -*-
 
           ;; Sane amount of scroll
@@ -41,11 +55,12 @@
             :config
             (evil-mode 1))
 	'';
-  };
+    };
 
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-    socketActivation.enable = true;
+    services.emacs = {
+      enable = true;
+      defaultEditor = true;
+      socketActivation.enable = true;
+    };
   };
 }

@@ -39,7 +39,20 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "ssh-keys": "ssh-keys"
+      }
+    },
+    "ssh-keys": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-GObIHAq7zn5E6MVsvKQW/dig280WsFaS1rx+mD1gLdk=",
+        "type": "file",
+        "url": "https://meta.sr.ht/~ashymad.keys"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://meta.sr.ht/~ashymad.keys"
       }
     }
   },
