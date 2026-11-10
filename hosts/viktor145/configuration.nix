@@ -4,6 +4,11 @@
 
   networking.hostName = "viktor145";
 
+  systemd.services.nix-daemon.serviceConfig = {
+    MemoryHigh = "700M";
+    MemoryMax = "900M";
+  };
+
   services.openssh = {
     enable = true;
     startWhenNeeded = false;
@@ -16,8 +21,8 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    max-jobs = 2;
-    cores = 4;
+    max-jobs = 1;
+    cores = 1;
   };
 
   environment.systemPackages = with pkgs; [

@@ -4,7 +4,6 @@ let
   inherit (inputs) home-manager;
 in
 {
-
   users.users.shyman = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -26,9 +25,29 @@ in
       shellAliases = {
         ":e" = "emacsclient";
         ":q" = "exit";
+        "g" = "git";
       };
     };
 
+    programs.git = {
+      enable = true;
+      settings = {
+        alias = {
+          a =  "add";
+          cn = "clean";
+          c =  "commit";
+          d =  "diff";
+          l =  "log";
+          s =  "status";
+          ss = "stash";
+        };
+
+        user = {
+          name = "Szymon Mikulicz";
+          email = "szymon.mikulicz@posteo.net";
+        };
+      };
+    };
 
     programs.emacs = {
       package = pkgs.emacs-nox;
@@ -54,7 +73,7 @@ in
           (use-package evil
             :config
             (evil-mode 1))
-	'';
+      '';
     };
 
     services.emacs = {
