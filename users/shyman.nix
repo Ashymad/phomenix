@@ -7,7 +7,7 @@ in
   users.users.shyman = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keyFiles = [ ssh-keys.outPath ];
+    openssh.authorizedKeys.keys = ssh-keys.keys."${pkgs.stdenv.system}";
   };
 
   home-manager.users.shyman = {

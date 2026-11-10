@@ -8,8 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ssh-keys = {
-      url = "https://meta.sr.ht/~ashymad.keys";
-      flake = false;
+      url = "path:./lib/srht";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
