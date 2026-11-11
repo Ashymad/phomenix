@@ -69,14 +69,15 @@
         ]
       },
       "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-ur+sb87S/QAGWySzET4WtUPL754s+u8ckPDAh6gG3Ac=",
         "path": "./lib/srht",
         "type": "path"
       },
       "original": {
         "path": "./lib/srht",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "systems": {
       "locked": {
