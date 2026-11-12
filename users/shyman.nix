@@ -1,13 +1,12 @@
 { inputs, config, lib, pkgs, ... }:
 let
-  inherit (inputs) ssh-keys;
-  inherit (inputs) home-manager;
+  authorizedKeys = inputs.ssh-keys.packages.${pkgs.stdenv.hostPlatform.system}.authorizedKeys;
 in
 {
   users.users.shyman = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = ssh-keys.keys."${pkgs.stdenv.system}";
+    openssh.authorizedKeys.keyFiles = [ authorizedKeys.outPath ];
   };
 
   home-manager.users.shyman = {

@@ -53,6 +53,7 @@
             inherit inputs;
           };
           modules = [
+            (import ./overlays/lix.nix)
             ./hosts/fourager/configuration.nix
             home-manager.nixosModules.home-manager
             {
