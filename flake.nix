@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ssh-keys = {
-      url = "path:./lib/srht";
+      url = "git+file:///home/shyman/.config/nixos?dir=lib/srht";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
