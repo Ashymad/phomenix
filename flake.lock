@@ -69,14 +69,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-ur+sb87S/QAGWySzET4WtUPL754s+u8ckPDAh6gG3Ac=",
-        "path": "./lib/srht",
-        "type": "path"
+        "dir": "lib/srht",
+        "lastModified": 1794479999,
+        "narHash": "sha256-X32S7sNY1QOsziUHzK9pE4rIcKE+uijZs1mI0Hby+qg=",
+        "ref": "refs/heads/main",
+        "rev": "db9b1fe0b7b110a03d777f5b84b6085b5f68e6c0",
+        "revCount": 10,
+        "type": "git",
+        "url": "file:///home/shyman/.config/nixos"
       },
       "original": {
-        "path": "./lib/srht",
-        "type": "path"
+        "dir": "lib/srht",
+        "type": "git",
+        "url": "file:///home/shyman/.config/nixos"
       }
     },
     "systems": {
