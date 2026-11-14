@@ -168,6 +168,7 @@
     fan2go
     nvi
     gitMinimal
+    mlterm-wayland
   ];
 
   hardware.graphics = {

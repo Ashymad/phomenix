@@ -11,9 +11,13 @@
       url = "sourcehut:~ashymad/keys";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dotfiles = {
+      url = "sourcehut:~ashymad/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ssh-keys, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ssh-keys, dotfiles, ... }:
     {
       nixosConfigurations = {
         pi3b = nixpkgs.lib.nixosSystem {

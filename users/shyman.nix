@@ -1,12 +1,24 @@
 { inputs, config, lib, pkgs, ... }:
 let
   authorizedKeys = inputs.ssh-keys.packages.${pkgs.stdenv.hostPlatform.system}.authorizedKeys;
+  dotfiles = inputs.dotfiles.packages.${pkgs.stdenv.hostPlatform.system};
+  dotfile = name: {
+    source = dotfiles."${name}";
+    target = "${name}/..";
+    recursive = true;
+  };
 in
 {
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+  };
+
   users.users.shyman = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keyFiles = [ authorizedKeys.outPath ];
+    shell = pkgs.zsh;
   };
 
   home-manager.users.shyman = {
@@ -14,33 +26,15 @@ in
       packages = with pkgs; [
         htop
         ncdu
-        git
+        envsubst
+        emacs-nox
       ];
       stateVersion = "26.11";
-    };
-
-    programs.bash = {
-      enable = true;
-      shellAliases = {
-        ":e" = "emacsclient";
-        ":q" = "exit";
-        "g" = "git";
-      };
     };
 
     programs.git = {
       enable = true;
       settings = {
-        alias = {
-          a =  "add";
-          cn = "clean";
-          c =  "commit";
-          d =  "diff";
-          l =  "log";
-          s =  "status";
-          ss = "stash";
-        };
-
         user = {
           name = "Szymon Mikulicz";
           email = "szymon.mikulicz@posteo.net";
@@ -48,31 +42,11 @@ in
       };
     };
 
-    programs.emacs = {
-      package = pkgs.emacs-nox;
-      enable = true;
-      extraPackages = epkgs: [
-        epkgs.evil
-        epkgs.nix-mode
-      ];
-      extraConfig = ''
-          ;; (package-initialize)  -*- lexical-binding: t; -*-
-
-          ;; Sane amount of scroll
-          (setq mouse-wheel-scroll-amount '(3))
-          (setq mouse-wheel-progressive-speed nil)
-          
-          ;; Relnum
-          (setq display-line-numbers-type 'relative)
-          (global-display-line-numbers-mode)
-          
-          ;; Turn off menu
-          (menu-bar-mode -1)
-          
-          (use-package evil
-            :config
-            (evil-mode 1))
-      '';
+    home.file = {
+      scripts = dotfile "scripts";
+      global = dotfile "global";
+      zsh = dotfile "zsh";
+      emacs = dotfile "emacs";
     };
 
     services.emacs = {
