@@ -57,6 +57,7 @@ in
 
     services.emacs = {
       enable = true;
+      package = pkgs.emacs-nox;
       socketActivation.enable = true;
     };
   };
