@@ -38,11 +38,6 @@
 
   time.timeZone = "Europe/Warsaw";
 
-  swapDevices = [{
-    device = "/.swapfile";
-    size = 2*1024; # 2 GiB
-  }];
-
   environment.systemPackages = with pkgs; [
     wget
     screen

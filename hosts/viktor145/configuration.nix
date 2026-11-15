@@ -23,6 +23,7 @@
     experimental-features = [ "nix-command" "flakes" ];
     max-jobs = 1;
     cores = 1;
+    trusted-users = [ "@wheel" ];
   };
 
   environment.systemPackages = with pkgs; [
