@@ -21,16 +21,21 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager.users.shyman = {
+  home-manager.users.shyman = {config, pkgs, ...}: {
     home = {
       packages = with pkgs; [
         htop
         ncdu
         envsubst
         emacs-nox
+        zoxide
+        vivid
+        mcfly
       ];
       stateVersion = "26.11";
     };
+
+    systemd.user.services.emacs.Service.Environment = "COLORTERM=truecolor";
 
     programs.git = {
       enable = true;
@@ -49,9 +54,9 @@ in
       emacs = dotfile "emacs";
     };
 
+
     services.emacs = {
       enable = true;
-      defaultEditor = true;
       socketActivation.enable = true;
     };
   };
