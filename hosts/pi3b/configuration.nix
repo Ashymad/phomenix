@@ -10,7 +10,6 @@
 
   networking.hostName = "pi3b";
 
-  networking.networkmanager.enable = false;
   networking.interfaces.enu1u1.ipv4.addresses = [
     {
 	    address = "192.168.1.3";
@@ -21,8 +20,9 @@
   networking.defaultGateway = "192.168.1.1";
   networking.nameservers = [ "192.168.1.3" ];
 
+  time.timeZone = "Europe/Warsaw";
+
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
     max-jobs = 1;
     cores = 1;
   };
@@ -35,13 +35,6 @@
 	      system.stateVersion = "26.11";
       };
   };
-
-  time.timeZone = "Europe/Warsaw";
-
-  environment.systemPackages = with pkgs; [
-    wget
-    screen
-  ];
 
   zramSwap.enable = true;
 

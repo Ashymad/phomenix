@@ -34,12 +34,9 @@
             inherit inputs;
           };
           modules = [
+            ./hosts/common.nix
             ./hosts/pi3b/configuration.nix
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-            }
             ./users/shyman.nix
           ];
         };
@@ -50,12 +47,9 @@
           };
           modules = [
             (import ./overlays/lix.nix)
+            ./hosts/common.nix
             ./hosts/viktor145/configuration.nix
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-            }
             ./users/shyman.nix
           ];
         };
@@ -66,14 +60,11 @@
           };
           modules = [
             (import ./overlays/lix.nix)
+            ./hosts/common.nix
             ./hosts/fourager/configuration.nix
             jovian.nixosModules.default
             chaotic.nixosModules.default
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-            }
             ./users/shyman.nix
           ];
         };

@@ -35,8 +35,6 @@ in
       stateVersion = "26.11";
     };
 
-    systemd.user.services.emacs.Service.Environment = "COLORTERM=truecolor";
-
     programs.git = {
       enable = true;
       settings = {
@@ -54,7 +52,7 @@ in
       emacs = dotfile "emacs";
     };
 
-
+    systemd.user.services.emacs.Service.Environment = "COLORTERM=truecolor";
     services.emacs = {
       enable = true;
       package = pkgs.emacs-nox;

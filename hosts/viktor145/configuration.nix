@@ -20,19 +20,9 @@
   };
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
     max-jobs = 1;
     cores = 1;
-    trusted-users = [ "@wheel" ];
   };
-
-  environment.systemPackages = with pkgs; [
-    iproute2
-    procps
-    screen
-    vis
-    git
-  ];
 
   # Keep this value when upgrading NixOS.
   system.stateVersion = "26.05";
