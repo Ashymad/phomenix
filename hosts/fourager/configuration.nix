@@ -22,19 +22,18 @@
     kernelModules = [ "nct6775" ];
   };
 
-  networking.hostName = "fourager";
-
   time.timeZone = "Europe/Warsaw";
 
-  networking.useNetworkd = true;
-
-  systemd.network = {
-    enable = true;
-    networks."50-enp5s0" = {
-      matchConfig.Name = "enp5s0";
-      networkConfig.DHCP = "yes";
-      linkConfig.RequiredForOnline = "yes";
-    };
+  networking = {
+    hostName = "fourager";
+    defaultGateway = "192.168.1.1";
+    nameservers = [ "192.168.1.3" ];
+    interfaces.enp5s0.ipv4.addresses = [
+      {
+	      address = "192.168.1.4";
+	      prefixLength = 24;
+      }
+    ];
   };
 
   nix.settings = {
@@ -73,4 +72,3 @@
 
   system.stateVersion = "25.11"; # Did you read the comment?
 }
-
