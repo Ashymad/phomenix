@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
-
 {
+  environment.systemPackages = with pkgs; [
+    lm_sensors
+    fan2go
+  ];
+
   systemd.services = {
     lm_sensors = {
       enable = true;
